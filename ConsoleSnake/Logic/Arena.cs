@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace ConsoleSnake
+namespace ConsoleSnake.Logic
 {
     public class Arena
     {

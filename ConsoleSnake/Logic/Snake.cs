@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace ConsoleSnake
+namespace ConsoleSnake.Logic
 {
     public class Snake
     {
@@ -54,14 +54,19 @@ namespace ConsoleSnake
             }
         }
 
-        public void AddSegment(Point segment)
+        public void AddSegment()
         {
-            Tuple<int, int> vector = GetMoveVector();
+            Point last = _segments.Last();
+            Point penultimate = _segments[_segments.Count - 2];
 
-            segment.X += vector.Item1;
-            segment.Y += vector.Item2;
-
-            _segments.Insert(0, segment);
+            if (penultimate.X == last.X + 1)
+                _segments.Add(new Point(last.X - 1, last.Y));
+            else if(penultimate.X == last.X - 1)
+                _segments.Add(new Point(last.X + 1, last.Y));
+            else if(penultimate.Y == last.Y + 1)
+                _segments.Add(new Point(last.X, last.Y - 1));
+            else if (penultimate.Y == last.Y - 1)
+                _segments.Add(new Point(last.X, last.Y + 1));
         }
 
         private Tuple<int, int> GetMoveVector()

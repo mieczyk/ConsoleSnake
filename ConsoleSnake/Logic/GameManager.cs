@@ -2,15 +2,17 @@
 using System.Drawing;
 using System.Linq;
 
-namespace ConsoleSnake
+namespace ConsoleSnake.Logic
 {
     public class GameManager
     {
-        public  Arena Arena { get; private set; }
+        public Arena Arena { get; private set; }
 
         public Snake Snake { get; private set; }
 
-        public GameManager(Arena arena, Snake snake)
+        public Scoring Scoring { get; private set; }
+
+        public GameManager(Arena arena, Snake snake, Scoring scoring)
         {
             if (arena == null)
                 throw new ArgumentNullException("arena");
@@ -18,8 +20,12 @@ namespace ConsoleSnake
             if (snake == null)
                 throw new ArgumentNullException("snake");
 
+            if (scoring == null)
+                throw new ArgumentException("scoring");
+
             Arena = arena;
             Snake = snake;
+            Scoring = scoring;
 
             Arena.GenerateBrickAtRandomPosition(Snake.Segments);
         }
@@ -30,9 +36,11 @@ namespace ConsoleSnake
 
             if (Snake.Segments.First() == Arena.ActiveBrick)
             {
-                Snake.AddSegment(Arena.ActiveBrick);
+                Snake.AddSegment();
                 Arena.GenerateBrickAtRandomPosition(Snake.Segments);
-                Console.Beep(1000, 100);
+                Scoring.AddScore(10);
+
+                Console.Beep(2500, 150);
             }
 
             return !IsCollision();
@@ -43,7 +51,10 @@ namespace ConsoleSnake
             Point snakeHead = Snake.Segments.First();
             bool result = false;
 
-            if (snakeHead.X < Arena.X || snakeHead.Y < Arena.Y || snakeHead.X >= Arena.Width || snakeHead.Y >= Arena.Height)
+            if (snakeHead.X < Arena.X 
+                || snakeHead.Y < Arena.Y 
+                || snakeHead.X >= Arena.X + Arena.Width 
+                || snakeHead.Y >= Arena.Y + Arena.Height)
                 result = true;
 
             if (Snake.IsSelfCollision())
