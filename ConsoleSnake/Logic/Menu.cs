@@ -18,10 +18,10 @@ namespace ConsoleSnake.Logic
         {
             _options = new SortedDictionary<MenuPosition, string>();
 
-            _options.Add(MenuPosition.SinglePlayer, "Single Player");
+            _options.Add(MenuPosition.NewGame, "New Game");
             _options.Add(MenuPosition.Exit, "Exit");
 
-            ActiveOption = MenuPosition.SinglePlayer;
+            ActiveOption = MenuPosition.NewGame;
         }
 
         public bool Next()

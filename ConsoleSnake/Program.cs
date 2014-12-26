@@ -39,7 +39,7 @@ namespace ConsoleSnake
 
             switch(option)
             {
-                case MenuPosition.SinglePlayer:
+                case MenuPosition.NewGame:
                     GameLoop();
                     break;
 

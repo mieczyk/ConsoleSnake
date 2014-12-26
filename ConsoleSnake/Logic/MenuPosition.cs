@@ -2,7 +2,7 @@
 {
     public enum MenuPosition 
     { 
-        SinglePlayer = 1,
+        NewGame = 1,
         Exit = 2 
     }
 }

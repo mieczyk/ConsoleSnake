@@ -60,6 +60,9 @@ namespace ConsoleSnake.Logic
             if (Snake.IsSelfCollision())
                 result = true;
 
+            if (result)
+                Console.Beep(500, 200);
+
             return result;
         }
     }
